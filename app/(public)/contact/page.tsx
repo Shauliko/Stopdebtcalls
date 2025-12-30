@@ -48,12 +48,16 @@ export default function RootLayout({
                 display: "flex",
                 gap: 20,
                 fontSize: 14,
+                flexWrap: "wrap",
               }}
             >
+              <Link href="/about">About</Link>
               <Link href="/blog">Blog</Link>
               <Link href="/faq">FAQ</Link>
+              <Link href="/contact">Contact</Link>
               <Link href="/terms">Terms</Link>
               <Link href="/privacy">Privacy</Link>
+              <Link href="/disclaimer">Disclaimer</Link>
             </nav>
           </div>
         </header>
@@ -89,15 +93,18 @@ export default function RootLayout({
               </div>
             </div>
 
-            <div style={{ display: "flex", gap: 24 }}>
+            <div style={{ display: "flex", gap: 40, flexWrap: "wrap" }}>
               <div style={{ display: "grid", gap: 8 }}>
+                <Link href="/about">About</Link>
                 <Link href="/blog">Blog</Link>
                 <Link href="/faq">FAQ</Link>
+                <Link href="/contact">Contact</Link>
               </div>
 
               <div style={{ display: "grid", gap: 8 }}>
                 <Link href="/terms">Terms</Link>
                 <Link href="/privacy">Privacy</Link>
+                <Link href="/disclaimer">Disclaimer</Link>
               </div>
             </div>
           </div>
