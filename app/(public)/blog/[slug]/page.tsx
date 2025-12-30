@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getPublishedBlogPostBySlug } from "@/lib/store";
-import ui from "../../styles/ui.module.css";
+import ui from "../../../styles/ui.module.css";
 
 type Props = {
   params: { slug: string };
