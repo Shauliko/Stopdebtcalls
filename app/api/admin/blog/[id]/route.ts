@@ -13,9 +13,11 @@ import {
  */
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const post = getBlogPostById(params.id);
+  const { id } = await context.params;
+
+  const post = getBlogPostById(id);
   if (!post) {
     return NextResponse.json(
       { error: "Post not found" },
@@ -32,12 +34,13 @@ export async function GET(
  */
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params;
   const body = await req.json();
 
   try {
-    const post = updateBlogPost(params.id, body);
+    const post = updateBlogPost(id, body);
     if (!post) {
       return NextResponse.json(
         { error: "Post not found" },
@@ -59,23 +62,25 @@ export async function PATCH(
  */
 export async function DELETE(
   _req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  deleteBlogPost(params.id);
+  const { id } = await context.params;
+  deleteBlogPost(id);
   return NextResponse.json({ ok: true });
 }
 
 /**
- * POST /api/admin/blog/[id]/publish
+ * POST /api/admin/blog/[id]/publish | /unpublish
  */
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params;
   const url = new URL(req.url);
 
   if (url.pathname.endsWith("/publish")) {
-    const post = publishBlogPost(params.id);
+    const post = publishBlogPost(id);
     if (!post) {
       return NextResponse.json(
         { error: "Post not found" },
@@ -86,7 +91,7 @@ export async function POST(
   }
 
   if (url.pathname.endsWith("/unpublish")) {
-    const post = unpublishBlogPost(params.id);
+    const post = unpublishBlogPost(id);
     if (!post) {
       return NextResponse.json(
         { error: "Post not found" },
